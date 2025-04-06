@@ -1,12 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom'
 import Layout from './Layout.jsx'
 import About from './componenets/About/About.jsx'
 import Home from "./componenets/Home/Home.jsx"
 import Contact from "./componenets/Contact/Contact.jsx"
+import User from './componenets/User/User.jsx'
+import Github, { githubInfoLoader } from './componenets/GitHub/Github.jsx'
 
 // const router = createBrowserRouter([{
 //   path: '/',
@@ -33,6 +34,12 @@ const router = createBrowserRouter(
       <Route path='' element={<Home/>}/>
       <Route path='about' element={<About/>}/>
       <Route path='contact' element={<Contact/>}/>
+      <Route path='user/:userid' element={<User/>}/>
+      <Route 
+      loader={githubInfoLoader}
+      path='github' 
+      element={<Github/>}
+      />
     </Route>
   )
 )

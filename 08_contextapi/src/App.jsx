@@ -1,11 +1,15 @@
-
+import Login from "./componenets/Login"
+import Profile from "./componenets/Profile"
+import UserContextProvider from "./context/UserContextProvider"
 
 function App() {
 
   return (
-    <>
-     <h1>Amaan ansari</h1>
-    </>
+  <UserContextProvider>
+    <h1>aman ansari</h1>
+    <Login/>
+    <Profile/>
+  </UserContextProvider>
   )
 }
 

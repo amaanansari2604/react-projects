@@ -21,3 +21,23 @@ redux-toolking (rtk), zustand v ek library h state management k liye,
 
 we will study here useContext hook
 context api means ek global variable bnega jisme values store rahengi fr ye values hum kahi v call kr skte hain
+
+we make new file named as usercontext.js in context folder kyunki iska code javascript m hi likkha jayega
+
+ab is file m hum ek createcontext varible m store krenge or ye context ek provider hota h jo values provide krta h to har ek context ek provider hota h 
+
+is file k andar hum koi v component define krenge to un sbko is usercontext ka access mil jayega or ye sb componenet ek provider ki trh use hojayenge kch is trh se 
+
+<userContext>
+    <Login/>
+    <card/>
+    <signin/>
+
+</userContext>
+
+usercontext ek global context h or uske andar jitne componenet hain vo sb ek provider bn jayenege to usercontext ko access kr skte hain values ko apne apne component m pass kr skte hain
+
+context folder m ek file bnayi thi usercontext.js ye file m sirf hum js likhte hain or ye ek context create krne k liye tha
+ab same folder m ek file bnaynge usercontextprovider.jsx krke isme hum apne jsx pass kr skte hain jo av upr dikhaya h 
+
+iske andar humne ek children pass kra h or yahi function usercontextprovider hum apne app.jsx ya main.jsx m call kr skte hain frr iske andar hum apne componenets ko daal skte hain like header footer 

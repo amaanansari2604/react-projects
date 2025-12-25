@@ -1,7 +1,7 @@
 import { Navbar } from "../components/Navbar";
 import { StarBackground } from "../components/StarComponent";
 import { ThemeToggle } from "../components/ThemeToggle";
-
+import { HomeSection } from "../components/HomeSection";
 export function Home(){
     return (
         <>
@@ -13,7 +13,9 @@ export function Home(){
            {/* navbar */}
             <Navbar/>
            {/* main content */}
-
+            <main>
+                <HomeSection/>
+            </main>
            {/* footer */}
         </div>
         </>

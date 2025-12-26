@@ -3,6 +3,8 @@ import { StarBackground } from "../components/StarComponent";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { HomeSection } from "../components/HomeSection";
 import { AboutSection } from "../components/AboutSection";
+import { SkillSection } from "../components/SkillsSection";
+import { ProjectSection } from "../components/ProjectSection";
 export function Home(){
     return (
         <>
@@ -17,6 +19,8 @@ export function Home(){
             <main>
                 <HomeSection/>
                 <AboutSection/>
+                <SkillSection/>
+                <ProjectSection/>
             </main>
            {/* footer */}
         </div>

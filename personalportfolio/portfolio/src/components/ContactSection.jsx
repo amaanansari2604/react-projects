@@ -2,6 +2,7 @@ import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Send } from "lucide
 import { cn } from "../lib/utils"
 import { useToast } from "../hooks/use-toast"
 import { useState } from "react";
+import emailjs from "@emailjs/browser"
 
 
 export function ContactSection() {
@@ -9,18 +10,58 @@ export function ContactSection() {
     const {toast} = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = (e) => {
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: ""
+    })
+
+    // const [formStatus, setFormStatus] = useState({
+    //     submitting: false,
+    //     success: false,
+    //     error: false,
+    //     message: ""
+    // })
+
+    const handleInputChange = (e) => {
+        const {name, value} = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    const handleSubmit = async (e) => {
             e.preventDefault()
 
+            
             setIsSubmitting(true);
-            setTimeout(() => {
+
+            try{
+                await emailjs.send(
+                    import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                    {
+                        name: formData.name,
+                        email: formData.email,
+                        message: formData.message
+                    }
+                )
                 toast({
                     title: "Message sent!",
                     description: "Thank you for your message i'll get back to you soon."
                 })
-            }, 1500)
-
             setIsSubmitting(false);
+
+            setFormData({
+                name: "",
+                email: "",
+                message: ""
+            })
+            } catch (error){
+                console.log(error)
+            }
+
     }
     return <section id="contact" className="py-24 px-4 relative bg-secondary/30">
         <div className="container mx-auto max-w-5xl">
@@ -96,23 +137,24 @@ export function ContactSection() {
 
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">Your Name</label>
-                            <input type="text" id="name" name="name" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary" placeholder="Amaan Ansari..."/>
+                            <input type="text" id="name" name="name" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary" placeholder="Amaan Ansari..." onChange={handleInputChange}/>
                         </div>
 
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium mb-2">Your Email</label>
-                            <input type="email" id="email" name="email" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary" placeholder="youremail@gmail.com..."/>
+                            <input type="email" id="email" name="email" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary" placeholder="youremail@gmail.com..."
+                            onChange={handleInputChange}/>
                         </div>
 
                         <div>
                             <label htmlFor="message" className="block text-sm font-medium mb-2">Your Message</label>
-                            <textarea id="message" name="message" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary resize-none" placeholder="Hello, I'd like to talk about..."/>
+                            <textarea id="message" name="message" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary resize-none" placeholder="Hello, I'd like to talk about..." onChange={handleInputChange}/>
                         </div>
 
                         <button type="submit" disabled={isSubmitting} className={cn("cosmic-button w-full flex items-center justify-center gap-2"
 
                         )}>
-                           { isSubmitting ? "Message Sent" : "Send Message"}
+                           { isSubmitting ? "Sending..." : "Send Message"}
                             <Send size={16}/>
                         </button>
                     </form>

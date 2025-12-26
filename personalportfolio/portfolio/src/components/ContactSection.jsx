@@ -1,14 +1,26 @@
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react"
 import { cn } from "../lib/utils"
+import { useToast } from "../hooks/use-toast"
+import { useState } from "react";
 
 
 export function ContactSection() {
 
+    const {toast} = useToast();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleSubmit = (e) => {
             e.preventDefault()
+
+            setIsSubmitting(true);
             setTimeout(() => {
-                
+                toast({
+                    title: "Message sent!",
+                    description: "Thank you for your message i'll get back to you soon."
+                })
             }, 1500)
+
+            setIsSubmitting(false);
     }
     return <section id="contact" className="py-24 px-4 relative bg-secondary/30">
         <div className="container mx-auto max-w-5xl">
@@ -80,7 +92,7 @@ export function ContactSection() {
                 <div className="bg-card p-8 rounded-lg shadow-xs">
                     <h3 className="text-2xl font-semibold mb-6"> Send a Message</h3>
 
-                    <form action="" className="space-y-6">
+                    <form action="" className="space-y-6" onSubmit={handleSubmit}>
 
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">Your Name</label>
@@ -97,10 +109,10 @@ export function ContactSection() {
                             <textarea id="message" name="message" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outlined-hidden focus:ring-2 focus:ring-primary resize-none" placeholder="Hello, I'd like to talk about..."/>
                         </div>
 
-                        <button type="submit" className={cn("cosmic-button w-full flex items-center justify-center gap-2",
+                        <button type="submit" disabled={isSubmitting} className={cn("cosmic-button w-full flex items-center justify-center gap-2"
 
                         )}>
-                            Send Message
+                           { isSubmitting ? "Message Sent" : "Send Message"}
                             <Send size={16}/>
                         </button>
                     </form>

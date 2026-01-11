@@ -14,14 +14,25 @@ function App() {
   const [matchedCards, setMatchedCards] = useState([])
   const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
+  const [isLocked, setIsLocked] = useState(false)
 
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for(let i = shuffled.length -1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
 
+    return shuffled;
+
+  }
 
   const initializeGame = () => {
     // shuffle the cards
 
+    const shuffled = shuffleArray(cardValues)
 
-    const finalCards = cardValues.map((value, index) => (
+    const finalCards = shuffled.map((value, index) => (
       {
         id: index,
         value,
@@ -31,8 +42,11 @@ function App() {
     ))
 
     setCards(finalCards)
+    setIsLocked(false)
     setMoves(0)
     setScore(0)
+    setMatchedCards([])
+    setFlippedCards([])
   }
 
   useEffect(() => {
@@ -43,7 +57,7 @@ function App() {
     // don't allow card is already flipped
 
     console.log(card, "-----card---handleccard click")
-    if (card.isFlipped || card.isMatched) {
+    if (card.isFlipped || card.isMatched || isLocked || flippedCards.length === 2) {
       return;
     }
 
@@ -63,6 +77,7 @@ function App() {
     //check if the two cards are flipped
 
     if (flippedCards.length === 1) {
+      setIsLocked(true);
       const firstCard = cards[flippedCards[0]];
 
       if (firstCard.value === card.value) {
@@ -78,6 +93,7 @@ function App() {
             }
           }))
           setFlippedCards([])
+          setIsLocked(false)
         }, 500);
 
 
@@ -97,6 +113,7 @@ function App() {
           setCards(flippedBackCard);
 
           setFlippedCards([])
+          setIsLocked(false)
         }, 1000)
 
       }

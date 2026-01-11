@@ -56,6 +56,26 @@ function App() {
     setFlippedCards(newFlippedCards)
 
     //check if the two cards are flipped
+
+    if (flippedCards.length === 1){
+      const firstCard = cards[flippedCards[0]];
+
+      if(firstCard.value === card.value){
+        alert("match")
+      } else{
+        //flip back card 1 and card 2
+
+        const flippedBackCard = newCards.map((c) => {
+          if (newFlippedCards.includes(c.id) || c.id === card.id ) {
+            return {...c, isFlipped: false}
+          } else {
+            return c;
+          }
+        })
+
+        setCards(flippedBackCard)
+      }
+    }
   }
   return (
     <div className="app">

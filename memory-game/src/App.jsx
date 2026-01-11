@@ -12,6 +12,8 @@ function App() {
   const [cards, setCards] = useState([])
   const [flippedCards, setFlippedCards] = useState([])
   const [matchedCards, setMatchedCards] = useState([])
+  const [score, setScore] = useState(0);
+  const [moves, setMoves] = useState(0);
 
 
 
@@ -29,6 +31,8 @@ function App() {
     ))
 
     setCards(finalCards)
+    setMoves(0)
+    setScore(0)
   }
 
   useEffect(() => {
@@ -65,7 +69,7 @@ function App() {
 
         setTimeout(() => {
           setMatchedCards((prev) => [...prev, firstCard.id, card.id]);
-
+          setScore((prev) => prev+1)
           setCards((prev) => prev.map((c) => {
             if (c.id === card.id || c.id === firstCard.id) {
               return { ...c, isMatched: true };
@@ -96,11 +100,12 @@ function App() {
         }, 1000)
 
       }
+      setMoves((prev)=> prev+1)
     }
   }
   return (
     <div className="app">
-      <GameHeader score={2} moves={5} />
+      <GameHeader score={score} moves={moves} onReset={initializeGame}/>
 
       <div className="cards-grid">
         {cards.map((card) => (

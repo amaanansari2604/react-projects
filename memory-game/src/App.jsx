@@ -10,8 +10,8 @@ const cardValues = [
 function App() {
 
   const [cards, setCards] = useState([])
+  const [flippedCards, setFlippedCards] = useState([])
 
-  console.log(cardValues, "cardvalues")
 
 
   const initializeGame = () => {
@@ -51,6 +51,11 @@ function App() {
     });
 
     setCards(newCards)
+
+    const newFlippedCards = [...flippedCards, card.id]
+    setFlippedCards(newFlippedCards)
+
+    //check if the two cards are flipped
   }
   return (
     <div className="app">

@@ -11,6 +11,7 @@ function App() {
 
   const [cards, setCards] = useState([])
   const [flippedCards, setFlippedCards] = useState([])
+  const [matchedCards, setMatchedCards] = useState([])
 
 
 
@@ -61,7 +62,22 @@ function App() {
       const firstCard = cards[flippedCards[0]];
 
       if (firstCard.value === card.value) {
-        alert("match")
+
+        setTimeout(() => {
+          setMatchedCards((prev) => [...prev, firstCard.id, card.id]);
+
+          setCards((prev) => prev.map((c) => {
+            if (c.id === card.id || c.id === firstCard.id) {
+              return { ...c, isMatched: true };
+            } else {
+              return c;
+            }
+          }))
+          setFlippedCards([])
+        }, 500);
+
+
+
       } else {
         //flip back card 1 and card 2
 
@@ -74,7 +90,9 @@ function App() {
             }
           })
 
-          setCards(flippedBackCard)
+          setCards(flippedBackCard);
+
+          setFlippedCards([])
         }, 1000)
 
       }

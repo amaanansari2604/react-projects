@@ -1,5 +1,7 @@
+import { AllSongs } from "./components/AllSongs"
 import { MusicPlayer } from "./components/MusicPlayer"
 import { BrowserRouter, Routes, Route } from "react-router"
+import { Playlists } from "./components/Playlists"
 
 function App() {
 
@@ -14,7 +16,8 @@ function App() {
           </div>
           <div className="content-section">
            <Routes>
-            <Route path="/" element={}/>
+            <Route path="/" element={<AllSongs/>}/>
+            <Route path="/playlists" element={<Playlists/>}/>
            </Routes>
           </div>
         </main>

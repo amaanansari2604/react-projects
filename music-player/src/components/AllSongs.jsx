@@ -1,4 +1,4 @@
 
 export function AllSongs (){
-    return <div></div>
+    return <div>all songs</div>
 }

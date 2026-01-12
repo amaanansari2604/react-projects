@@ -1,20 +1,25 @@
 import { MusicPlayer } from "./components/MusicPlayer"
+import { BrowserRouter, Routes, Route } from "react-router"
 
 function App() {
 
   return (
-    <>
+    <BrowserRouter>
       <div className="app">
         {/* <Navbar></Navbar> */}
 
         <main className="app-main">
           <div className="player-section">
-            <MusicPlayer></MusicPlayer>
+            <MusicPlayer/>
           </div>
-          <div className="content-section"></div>
+          <div className="content-section">
+           <Routes>
+            <Route path="/" element={}/>
+           </Routes>
+          </div>
         </main>
       </div>
-    </>
+      </BrowserRouter>
   )
 }
 

@@ -1,10 +1,39 @@
+import { useEffect, useRef } from "react";
 import { useMusic } from "../hooks/useMusic"
 
 export function MusicPlayer (){
-    const {currentTrack, formatTime, currentTime, duration} = useMusic();
+    const {currentTrack, formatTime, currentTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack} = useMusic();
+
+    const audioRef = useRef(null);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+
+        if(!audio) return;
+
+        const handleLoadedMetadata = () => {
+            setDuration(audio.duration)
+            console.log(audio.duration)
+        }
+
+        const handleTimeUpdate = () => {
+
+        }
+
+        const handleEnder = () => {
+
+        }
+
+        audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+
+        return () => {
+        audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+
+        }
+    }, [setDuration, setCurrentTime, currentTrack])
     return (
         <div className="music-player">
-            <audio src=""></audio>
+            <audio src={currentTrack.url} ref={audioRef} preload="metadata" crossOrigin="anonymous"></audio>
 
             <div className="track-info">
                 <h3 className="track-title">{currentTrack.title}</h3>
@@ -19,6 +48,12 @@ export function MusicPlayer (){
                 <span className="time">
                     {formatTime(duration)}
                 </span>
+            </div>
+
+            <div className="controls">
+                <button className="control-btn" onClick={prevTrack}>⏮</button>
+                <button className="control-btn play-btn">⏸ ▶</button>
+                <button className="control-btn" onClick={nextTrack}>⏭</button>
             </div>
         </div>
     )

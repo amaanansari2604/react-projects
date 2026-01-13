@@ -2,14 +2,14 @@ import { useState } from "react"
 
 const songs = [
     {
-        id:1,
+        id: 1,
         title: "Barbaad Saiyaara",
         artist: "Juibin Nautiyal",
         url: "/songs/barbaad.mp3",
         duration: "03:45"
     },
     {
-        id:2,
+        id: 2,
         title: "bas ek dhadak",
         artist: "arijit singh",
         url: "/songs/bas-ek-dhadak.mp3",
@@ -17,7 +17,7 @@ const songs = [
 
     },
     {
-        id:3,
+        id: 3,
         title: "Dhun Saiyaara",
         artist: "Arijit singh",
         url: "/songs/dhun.mp3",
@@ -25,32 +25,32 @@ const songs = [
 
     },
     {
-        id:4,
+        id: 4,
         title: "Dhurandhar Title Track",
         artist: "Hanumankind",
         url: "/songs/dhurandhar.mp3",
         duration: "03:45"
     },
     {
-        id:5,
+        id: 5,
         title: "Dil Ke Taj Mahal",
         artist: "Himesh Reshammiya",
         url: "/songs/dil-ke-taj-mahal.mp3"
     },
     {
-        id:6,
+        id: 6,
         title: "Duniya alag",
         artist: "Arijit Singh",
         url: "/songs/duniya-alag.mp3"
     },
     {
-        id:7,
+        id: 7,
         title: "Humsafar Saiyaara",
         artist: "Sachet Tandon",
         url: "/songs/humsafar-saiyara.mp3"
     },
     {
-        id:8,
+        id: 8,
         title: "Lutt Le Gaya",
         artist: "a girl",
         url: "/songs/lutt-let-gya.mp3",
@@ -58,7 +58,7 @@ const songs = [
 
     },
     {
-        id:9,
+        id: 9,
         title: "Pardesiya",
         artist: "sonu nigam",
         url: "/songs/pardesiya.mp3",
@@ -66,7 +66,7 @@ const songs = [
 
     },
     {
-        id:10,
+        id: 10,
         title: "Run down the city",
         artist: "a boy",
         url: "/songs/run-down-the-city.mp3",
@@ -74,7 +74,7 @@ const songs = [
 
     },
     {
-        id:11,
+        id: 11,
         title: "Saiyaara Title Track",
         artist: "Faheem abdullah",
         url: "/songs/saiyaara.mp3",
@@ -82,7 +82,7 @@ const songs = [
 
     },
     {
-        id:12,
+        id: 12,
         title: "Tum Ho Toh Saiyaara",
         artist: "vishal mishra",
         url: "/songs/tum-ho-to.mp3",
@@ -103,8 +103,26 @@ export const useMusic = () => {
         setCurrentTrackIndex(index)
     }
 
+    const nextTrack = () => {
+        setCurrentTrackIndex((prev) => {
+            const nextIndex = (prev + 1) % allSongs.length;
+            setCurrentTrack(allSongs[nextIndex])
+            return nextIndex
+        });
+
+    }
+
+    const prevTrack = () => {
+        setCurrentTrackIndex((prev) => {
+            const nextIndex = prev===0 ? allSongs.length - 1 : prev - 1;
+            setCurrentTrack(allSongs[nextIndex])
+            return nextIndex
+        });
+
+    }
+
     const formatTime = (time) => {
-        if(isNaN(time)) return "00:00";
+        if (isNaN(time)) return "00:00";
 
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
@@ -112,5 +130,5 @@ export const useMusic = () => {
         return `${minutes}:${seconds.toString().padStart(2, "0")}`
     }
 
-    return {allSongs, handlePlaySong, currentTrackIndex, currentTrack, currentTime, formatTime, duration};
+    return { allSongs, handlePlaySong, currentTrackIndex, currentTrack, currentTime, formatTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack};
 }

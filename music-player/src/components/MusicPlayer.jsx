@@ -32,15 +32,19 @@ export function MusicPlayer (){
         }
 
         const handleEnder = () => {
-
+            nextTrack()
         }
 
         audio.addEventListener("loadedmetadata", handleLoadedMetadata);
         audio.addEventListener("timeupdate", handleTimeUpdate);
+        audio.addEventListener("ended", handleEnder);
+
 
         return () => {
         audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
         audio.removeEventListener("timeupdate", handleTimeUpdate);
+        audio.removeEventListener("ended", handleEnder);
+
 
         }
     }, [setDuration, setCurrentTime, currentTrack])

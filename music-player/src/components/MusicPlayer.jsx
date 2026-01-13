@@ -1,7 +1,7 @@
 import { useMusic } from "../hooks/useMusic"
 
 export function MusicPlayer (){
-    const {currentTrack} = useMusic();
+    const {currentTrack, formatTime, currentTime, duration} = useMusic();
     return (
         <div className="music-player">
             <audio src=""></audio>
@@ -13,7 +13,11 @@ export function MusicPlayer (){
 
             <div className="progress-container">
                 <span className="time">
-                    
+                    {formatTime(currentTime)}
+                </span>
+                <input type="range" min={"0"} max={duration || 0} value={currentTime || 0} step={"0.1"} className="progress-bar" style={{}}/>
+                <span className="time">
+                    {formatTime(duration)}
                 </span>
             </div>
         </div>

@@ -28,7 +28,7 @@ export function MusicPlayer (){
         }
 
         const handleTimeUpdate = () => {
-
+            setCurrentTime(audio.currentTime);
         }
 
         const handleEnder = () => {
@@ -36,9 +36,11 @@ export function MusicPlayer (){
         }
 
         audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+        audio.addEventListener("timeupdate", handleTimeUpdate);
 
         return () => {
         audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+        audio.removeEventListener("timeupdate", handleTimeUpdate);
 
         }
     }, [setDuration, setCurrentTime, currentTrack])

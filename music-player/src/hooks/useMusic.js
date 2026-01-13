@@ -5,25 +5,31 @@ const songs = [
         id:1,
         title: "Barbaad Saiyaara",
         artist: "Juibin Nautiyal",
-        url: "/songs/barbaad.mp3"
+        url: "/songs/barbaad.mp3",
+        duration: "03:45"
     },
     {
         id:2,
         title: "bas ek dhadak",
         artist: "arijit singh",
-        url: "/songs/bas-ek-dhadak.mp3"
+        url: "/songs/bas-ek-dhadak.mp3",
+        duration: "04:45"
+
     },
     {
         id:3,
         title: "Dhun Saiyaara",
         artist: "Arijit singh",
-        url: "/songs/dhun.mp3"
+        url: "/songs/dhun.mp3",
+        duration: "03:20"
+
     },
     {
         id:4,
         title: "Dhurandhar Title Track",
         artist: "Hanumankind",
-        url: "/songs/dhurandhar.mp3"
+        url: "/songs/dhurandhar.mp3",
+        duration: "03:45"
     },
     {
         id:5,
@@ -47,34 +53,46 @@ const songs = [
         id:8,
         title: "Lutt Le Gaya",
         artist: "a girl",
-        url: "/songs/lutt-let-gya.mp3"
+        url: "/songs/lutt-let-gya.mp3",
+        duration: "03:45"
+
     },
     {
         id:9,
         title: "Pardesiya",
         artist: "sonu nigam",
-        url: "/songs/pardesiya.mp3"
+        url: "/songs/pardesiya.mp3",
+        duration: "03:45"
+
     },
     {
         id:10,
         title: "Run down the city",
         artist: "a boy",
-        url: "/songs/run-down-the-city.mp3"
+        url: "/songs/run-down-the-city.mp3",
+        duration: "03:45"
+
     },
     {
         id:11,
         title: "Saiyaara Title Track",
         artist: "Faheem abdullah",
-        url: "/songs/saiyaara.mp3"
+        url: "/songs/saiyaara.mp3",
+        duration: "03:45"
+
     },
     {
         id:12,
         title: "Tum Ho Toh Saiyaara",
         artist: "vishal mishra",
-        url: "/songs/tum-ho-to.mp3"
+        url: "/songs/tum-ho-to.mp3",
+        duration: "03:45"
+
     }
 ]
 
 export const useMusic = () => {
-    const [allSongs, setAllSongs] = useState([])
+    const [allSongs, setAllSongs] = useState(songs);
+
+    return {allSongs};
 }

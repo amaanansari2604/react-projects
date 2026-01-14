@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useMusic } from "../hooks/useMusic"
 
 export function MusicPlayer (){
-    const {currentTrack, formatTime, currentTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying} = useMusic();
+    const {currentTrack, formatTime, currentTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume} = useMusic();
 
     const audioRef = useRef(null);
 
@@ -80,6 +80,11 @@ export function MusicPlayer (){
                 <button className="control-btn" onClick={prevTrack}>⏮</button>
                 <button className="control-btn play-btn" onClick={() => isPlaying ? pause() : play()}>  {isPlaying ? "⏸" : "▶"}</button>
                 <button className="control-btn" onClick={nextTrack}>⏭</button>
+            </div>
+
+            <div className="volume container">
+                <span className="volume-icon">🔉</span>
+                <input type="range" min={"0"} max={"1"} step={"0.1"} className="volume-bar"/>
             </div>
         </div>
     )

@@ -6,6 +6,15 @@ export function MusicPlayer (){
 
     const audioRef = useRef(null);
 
+    const handleTimeChange = (e) => {
+        const audio = audioRef.current;
+        if(!audio)  return;
+
+        const newTime = parseFloat(e.target.value);
+        audio.currentTime = newTime;
+        setCurrentTime(newTime);
+    }
+
     useEffect(() => {
         const audio = audioRef.current;
         if(!audio) return;
@@ -61,7 +70,7 @@ export function MusicPlayer (){
                 <span className="time">
                     {formatTime(currentTime)}
                 </span>
-                <input type="range" min={"0"} max={duration || 0} value={currentTime || 0} step={"0.1"} className="progress-bar" style={{}}/>
+                <input type="range" min={"0"} max={duration || 0} value={currentTime || 0} step={"0.1"} className="progress-bar" onChange={handleTimeChange}/>
                 <span className="time">
                     {formatTime(duration)}
                 </span>

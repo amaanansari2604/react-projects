@@ -70,6 +70,8 @@ export function MusicPlayer (){
 
         }
     }, [setDuration, setCurrentTime, currentTrack])
+
+    const progressPercentage = duration ? 0 ? (currentTime / duration) * 100 : 0;
     return (
         <div className="music-player">
             <audio src={currentTrack.url} ref={audioRef} preload="metadata" crossOrigin="anonymous"></audio>

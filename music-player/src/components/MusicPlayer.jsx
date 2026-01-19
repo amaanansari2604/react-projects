@@ -71,7 +71,7 @@ export function MusicPlayer (){
         }
     }, [setDuration, setCurrentTime, currentTrack])
 
-    const progressPercentage = duration ? 0 ? (currentTime / duration) * 100 : 0;
+    const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0
     return (
         <div className="music-player">
             <audio src={currentTrack.url} ref={audioRef} preload="metadata" crossOrigin="anonymous"></audio>
@@ -85,7 +85,7 @@ export function MusicPlayer (){
                 <span className="time">
                     {formatTime(currentTime)}
                 </span>
-                <input type="range" min={"0"} max={duration || 0} value={currentTime || 0} step={"0.1"} className="progress-bar" onChange={handleTimeChange}/>
+                <input type="range" min={"0"} max={duration || 0} value={currentTime || 0} step={"0.1"} className="progress-bar" onChange={handleTimeChange} style={{"--progress": `${progressPercentage}%`}}/>
                 <span className="time">
                     {formatTime(duration)}
                 </span>

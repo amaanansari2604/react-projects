@@ -1,9 +1,8 @@
-import { useContext, useEffect, useRef } from "react";
-import { useMusic } from "../hooks/useMusic"
-import { MusicContext } from "../contexts/MusicContext";
+import { useEffect, useRef } from "react";
+import { useMusic } from "../contexts/MusicContext";
 
 export function MusicPlayer (){
-    const {currentTrack, formatTime, currentTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume} = useContext(MusicContext);
+    const {currentTrack, formatTime, currentTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume} = useMusic();
 
     const audioRef = useRef(null);
 

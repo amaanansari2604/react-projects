@@ -1,7 +1,7 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { useState } from "react";
 
-export const MusicContext = createContext();
+const MusicContext = createContext();
 
 
 const songs = [
@@ -146,4 +146,16 @@ export const MusicProvider = ({children}) => {
     
 
     return <MusicContext.Provider value={{ allSongs, handlePlaySong, currentTrackIndex, currentTrack, currentTime, formatTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume}}>{children}</MusicContext.Provider>
+}
+
+// we don't have to import two context imports below use music hook can be used to import as one and used as context
+
+export const useMusic = () => {
+    const contextValue = useContext(MusicContext);
+
+    if(!contextValue){
+        throw new Error("useMusic must be provided inside of MusicProvider")
+    }
+    
+    return contextValue;
 }

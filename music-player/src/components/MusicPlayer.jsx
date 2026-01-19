@@ -1,8 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useMusic } from "../hooks/useMusic"
+import { MusicContext } from "../contexts/MusicContext";
 
 export function MusicPlayer (){
-    const {currentTrack, formatTime, currentTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume} = useMusic();
+    const {currentTrack, formatTime, currentTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume} = useContext(MusicContext);
 
     const audioRef = useRef(null);
 
@@ -58,18 +59,29 @@ export function MusicPlayer (){
         }
 
         audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+        audio.addEventListener("canplay", handleLoadedMetadata);
         audio.addEventListener("timeupdate", handleTimeUpdate);
         audio.addEventListener("ended", handleEnder);
 
 
         return () => {
         audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+        audio.removeEventListener("canplay", handleLoadedMetadata);
         audio.removeEventListener("timeupdate", handleTimeUpdate);
         audio.removeEventListener("ended", handleEnder);
 
 
         }
-    }, [setDuration, setCurrentTime, currentTrack])
+    }, [setDuration, setCurrentTime, currentTrack, nextTrack])
+
+    useEffect(() => {
+        const audio  = audioRef.current;
+        if(!audio) return;
+
+        audio.load();
+        setCurrentTime(0);
+        setDuration(0);
+    }, [currentTrack, setCurrentTime, setDuration])
 
     const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0
     return (

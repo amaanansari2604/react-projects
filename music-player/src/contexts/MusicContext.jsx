@@ -1,4 +1,8 @@
-import { useState } from "react"
+import { createContext } from "react";
+import { useState } from "react";
+
+export const MusicContext = createContext();
+
 
 const songs = [
     {
@@ -91,8 +95,55 @@ const songs = [
     }
 ]
 
-export const useMusic = () => {
-   
+export const MusicProvider = ({children}) => {
 
-    return { allSongs, handlePlaySong, currentTrackIndex, currentTrack, currentTime, formatTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume};
+     const [allSongs, setAllSongs] = useState(songs);
+    const [currentTrack, setCurrentTrack] = useState(songs[0]);
+    const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [volume, setVolume] = useState(1);
+
+
+    const handlePlaySong = (song, index) => {
+        setCurrentTrack(song)
+        setCurrentTrackIndex(index)
+        setIsPlaying(false);
+    }
+
+    const nextTrack = () => {
+        setCurrentTrackIndex((prev) => {
+            const nextIndex = (prev + 1) % allSongs.length;
+            setCurrentTrack(allSongs[nextIndex])
+            return nextIndex
+        });
+        setIsPlaying(false);
+    }
+
+    const prevTrack = () => {
+        setCurrentTrackIndex((prev) => {
+            const nextIndex = prev===0 ? allSongs.length - 1 : prev - 1;
+            setCurrentTrack(allSongs[nextIndex])
+            return nextIndex
+        });
+        setIsPlaying(false);
+
+    }
+
+    const formatTime = (time) => {
+        if (isNaN(time)) return "00:00";
+
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`
+    }
+
+    const play = () => setIsPlaying(true);
+    const pause = () => setIsPlaying(false);
+
+    
+
+    return <MusicContext.Provider value={{ allSongs, handlePlaySong, currentTrackIndex, currentTrack, currentTime, formatTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume}}>{children}</MusicContext.Provider>
 }

@@ -104,6 +104,7 @@ export const MusicProvider = ({children}) => {
     const [duration, setDuration] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(1);
+    const [playlists, setPlaylists] = useState([]);
 
 
     const handlePlaySong = (song, index) => {
@@ -140,12 +141,21 @@ export const MusicProvider = ({children}) => {
         return `${minutes}:${seconds.toString().padStart(2, "0")}`
     }
 
+    const createPlaylist = (name) => {
+        const newPlaylist = {
+            id: Date.now(),
+            name,
+            songs: [],
+        };
+
+        setPlaylists((prev) => [...prev, newPlaylist])
+    }
     const play = () => setIsPlaying(true);
     const pause = () => setIsPlaying(false);
 
     
 
-    return <MusicContext.Provider value={{ allSongs, handlePlaySong, currentTrackIndex, currentTrack, currentTime, formatTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume}}>{children}</MusicContext.Provider>
+    return <MusicContext.Provider value={{ allSongs, handlePlaySong, currentTrackIndex, currentTrack, currentTime, formatTime, duration, setDuration, setCurrentTime, nextTrack, prevTrack, play, pause, isPlaying, volume, setVolume, createPlaylist, playlists}}>{children}</MusicContext.Provider>
 }
 
 // we don't have to import two context imports below use music hook can be used to import as one and used as context

@@ -1,12 +1,18 @@
 import { useState } from "react"
+import { useMusic } from "../contexts/MusicContext";
 
 
-export function Playlists (){
+export function Playlists() {
 
     const [newPlaylist, setNewPlaylist] = useState("");
 
-    const handleCreatePlaylist = () => {
+    const { playlists, createPlaylist } = useMusic();
 
+    const handleCreatePlaylist = () => {
+        if (newPlaylist.trim()) {
+            createPlaylist(newPlaylist.trim())
+            setNewPlaylist("");
+        }
     }
 
 
@@ -22,5 +28,29 @@ export function Playlists (){
                 <button className="create-btn" onClick={handleCreatePlaylist}>Create Playlist</button>
             </div>
         </div>
+
+        {/* renders the playlist list */}
+
+        <div className="playlists-list">
+            {playlists.length === 0 ? (<p className="empty-message">No Playlists created yet</p>) : (playlists.map((playlist, key) => <div className="playlist-item" key={key}>
+                <div className="playlist-header">
+                    <h3>{playlist.name}</h3>
+                    <div className="playlist-actions">
+                        <button className="delete-btn">Delete</button>
+                    </div>
+                </div>
+
+                {/* add song search */}
+
+                <div className="add-song-section">
+                    <div className="search-container">
+                        <input type="text" placeholder="Search songs to add..." />
+                    </div>
+                </div>
+            </div>
+            ))
+            }
+        </div>
+
     </div>
 }

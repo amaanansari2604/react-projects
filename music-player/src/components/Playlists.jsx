@@ -5,6 +5,9 @@ import { useMusic } from "../contexts/MusicContext";
 export function Playlists() {
 
     const [newPlaylist, setNewPlaylist] = useState("");
+    const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const { playlists, createPlaylist } = useMusic();
 
@@ -44,7 +47,10 @@ export function Playlists() {
 
                 <div className="add-song-section">
                     <div className="search-container">
-                        <input type="text" placeholder="Search songs to add..." />
+                        <input type="text" 
+                        placeholder="Search songs to add..."
+                        value={selectedPlaylist.id === playlist.id ? searchQuery : ""}
+                        />
                     </div>
                 </div>
             </div>

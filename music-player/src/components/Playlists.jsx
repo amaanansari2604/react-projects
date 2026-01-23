@@ -9,7 +9,7 @@ export function Playlists() {
     const [searchQuery, setSearchQuery] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const { playlists, createPlaylist, allSongs } = useMusic();
+    const { playlists, createPlaylist, allSongs, addSongToPlaylist } = useMusic();
 
     const filteredSongs = allSongs.filter((song) => {
         const matches = song.title.toLowerCase().includes(searchQuery.toLocaleLowerCase()) || song.artist.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase());
@@ -23,6 +23,14 @@ export function Playlists() {
         if (newPlaylist.trim()) {
             createPlaylist(newPlaylist.trim())
             setNewPlaylist("");
+        }
+    }
+
+    const handleAddSong = (song) => {
+        if (selectedPlaylist) {
+            addSongToPlaylist(selectedPlaylist.id, song);
+            setSearchQuery("");
+            setShowDropdown(false);
         }
     }
 
@@ -73,7 +81,7 @@ export function Playlists() {
                                 {filteredSongs.length === 0 ? (<div className="dropdown-item no-result">No songs found</div>) : 
                                 (
                                     filteredSongs.slice(0, 5).map((song, key) => (
-                                    <div key={key} className="dropdown-item">
+                                    <div key={key} className="dropdown-item" onClick={() => handleAddSong(song)}>
                                         <span className="song-title">{song.title}</span>
                                         <span className="song-artist">{song.artist}</span>
                                     </div>))
@@ -81,6 +89,10 @@ export function Playlists() {
                             </div>
                         )}
                     </div>
+                </div>
+
+                <div className="playlist-songs">
+                    
                 </div>
             </div>
             ))

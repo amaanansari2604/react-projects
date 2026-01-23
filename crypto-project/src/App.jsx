@@ -1,10 +1,11 @@
+import { BrowserRouter, Routes, Route } from "react-router"
 
 function App() {
 
   return (
-    <>
-      <div>hello</div>
-    </>
+    <BrowserRouter>
+      <Route path="/" element></Route>
+    </BrowserRouter>
   )
 }
 
